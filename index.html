@@ -394,57 +394,54 @@
     font-family: 'Gowun Batang', serif;
     font-size: 2rem;
     font-weight: 700;
-    color: var(--pink-deep);
     line-height: 1.2;
     margin-bottom: 6px;
   }
   .result-type-sub { font-size: 0.85rem; color: var(--text-soft); }
 
-  /* 캐릭터 전신 이미지 */
+  /* 캐릭터 전신 이미지 (박스 없음) */
   .result-character-wrap {
-    width: 240px;
+    width: 100%;
+    max-width: 280px;
     margin: 0 auto 0;
     position: relative;
+    text-align: center;
   }
   .result-character-img-box {
-    width: 240px;
-    aspect-ratio: 9 / 16;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 12px 40px rgba(232,67,122,0.22), 0 0 0 4px rgba(255,111,168,0.18);
-    background: linear-gradient(160deg, var(--pink-pale) 0%, #ffe0ef 100%);
     display: flex;
     align-items: flex-end;
     justify-content: center;
   }
   .result-character-img-box img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top center;
+    max-width: 280px;
+    height: auto;
     display: block;
+    filter: drop-shadow(0 8px 24px rgba(0,0,0,0.12));
   }
   /* 이미지 없을 때 플레이스홀더 */
   .result-char-placeholder {
     font-size: 6rem;
-    padding-bottom: 20px;
+    padding: 40px 0;
     line-height: 1;
   }
 
   /* 캐릭터 한 마디 말풍선 */
   .result-char-quote {
     background: var(--white);
-    border: 2px solid rgba(255,111,168,0.28);
+    border: 2px solid var(--quote-color, var(--pink-light));
     border-radius: 16px;
     border-top-left-radius: 4px;
-    padding: 14px 16px;
+    padding: 14px 18px;
     margin: 12px 0 20px;
     font-family: 'Gowun Batang', serif;
-    font-size: 0.92rem;
+    font-size: 0.94rem;
     line-height: 1.7;
     color: var(--text-dark);
     box-shadow: var(--shadow);
     position: relative;
+    font-style: italic;
+    text-align: center;
   }
   .result-char-quote::before {
     content: '';
@@ -453,7 +450,7 @@
     left: 20px;
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
-    border-bottom: 10px solid rgba(255,111,168,0.28);
+    border-bottom: 10px solid var(--quote-color, var(--pink-light));
   }
   .result-char-quote::after {
     content: '';
@@ -463,13 +460,6 @@
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
     border-bottom: 8px solid var(--white);
-  }
-  .quote-name {
-    font-size: 0.72rem;
-    font-weight: 800;
-    color: var(--pink-deep);
-    letter-spacing: 0.08em;
-    margin-bottom: 6px;
   }
 
   /* 결과 카드들 */
@@ -681,7 +671,6 @@
       </div>
 
       <h1 class="intro-title">당신의 <span class="accent">사랑</span>은<br>무슨 색이야?</h1>
-      <p class="intro-sub">심리학자 존 리(John Alan Lee)에 의하면<br>사랑에는 6가지 색채가 있다고 합니다.<br>나의 사랑 스타일을 알아보고,<br>같은 색채의 히로인을 만나보세요!</p>
     </div>
 
     <div class="intro-card">
@@ -695,6 +684,8 @@
         <div class="intro-type-item"><span class="intro-type-emoji">🖤</span>매니아</div>
       </div>
     </div>
+
+    <p class="intro-sub" style="text-align:center">심리학자 존 리(John Alan Lee)에 의하면<br>사랑에는 6가지 색채가 있다고 합니다.<br>나의 사랑 스타일을 알아보고,<br>같은 색채의 히로인을 만나보세요!</p>
 
     <button class="btn-main" onclick="startQuiz()">테스트 시작!</button>
   </div>
@@ -765,8 +756,7 @@
     </div>
 
     <!-- 캐릭터 한 마디 -->
-    <div class="result-char-quote">
-      <div class="quote-name" id="quoteCharName">루아</div>
+    <div class="result-char-quote" id="resultQuote">
       <div id="quoteText">...</div>
     </div>
 
@@ -840,6 +830,7 @@ const TYPES = {
     sub: '순수한 사랑의 헌신자',
     emoji: '🩷',
     color: '#e8437a',
+    nameColor: '#FF7EB3',
     barColor: 'linear-gradient(90deg, #e8437a, #ff9ec0)',
     // 캐릭터 이미지 경로 — 실제 파일명으로 교체하세요
     image: 'images/agape.png',
@@ -855,6 +846,7 @@ const TYPES = {
     sub: '열정적인 낭만주의자',
     emoji: '💛',
     color: '#d4a017',
+    nameColor: '#E8B830',
     barColor: 'linear-gradient(90deg, #d4a017, #f0d060)',
     image: 'images/eros.png',
     charName: '이사벨',
@@ -869,6 +861,7 @@ const TYPES = {
     sub: '따뜻한 우정의 동반자',
     emoji: '🩵',
     color: '#2980b9',
+    nameColor: '#5DADE2',
     barColor: 'linear-gradient(90deg, #2980b9, #7ec8e3)',
     image: 'images/storge.png',
     charName: '하나',
@@ -883,6 +876,7 @@ const TYPES = {
     sub: '현실적인 이성의 설계자',
     emoji: '💚',
     color: '#3d9970',
+    nameColor: '#52BE80',
     barColor: 'linear-gradient(90deg, #3d9970, #7fba9a)',
     image: 'images/pragma.png',
     charName: '에리',
@@ -897,6 +891,7 @@ const TYPES = {
     sub: '자유로운 유희의 플레이어',
     emoji: '💜',
     color: '#7b5ea7',
+    nameColor: '#A87FD2',
     barColor: 'linear-gradient(90deg, #7b5ea7, #c77dca)',
     image: 'images/ludus.png',
     charName: '세라',
@@ -911,6 +906,7 @@ const TYPES = {
     sub: '깊은 감정의 몰입주의자',
     emoji: '🖤',
     color: '#333',
+    nameColor: '#3A3A3A',
     barColor: 'linear-gradient(90deg, #555, #8a8a8a)',
     image: 'images/mania.png',
     charName: '유이',
@@ -1037,6 +1033,33 @@ const QUESTIONS = [
       { text: '오랜 친구처럼 편안하고 깊은 사랑', scores: { storge: 3 } },
       { text: '함께 성장하고 미래를 만들어가는 사랑', scores: { pragma: 2, agape: 1 } }
     ]
+  },
+  {
+    text: '연인이 다른 이성과 즐겁게 대화하는 걸 봤을 때...',
+    options: [
+      { text: '신경이 쓰여서 괜히 그 사람이 누군지 확인하게 된다', scores: { mania: 3 } },
+      { text: '별일 아니라고 생각하고 넘긴다', scores: { ludus: 2, pragma: 1 } },
+      { text: '조금 불안하지만 연인을 믿으려 노력한다', scores: { storge: 2, agape: 1 } },
+      { text: '나도 다른 사람들과 즐겁게 지내면 된다고 생각한다', scores: { ludus: 3 } }
+    ]
+  },
+  {
+    text: '자기 전, 연인에게 "좋아해"라고 말했는데 답장이 없다면...',
+    options: [
+      { text: '잠들었나 보다 하고 자연스럽게 넘긴다', scores: { storge: 2, pragma: 1 } },
+      { text: '혹시 나한테 서운한 게 있나 계속 생각하게 된다', scores: { mania: 3 } },
+      { text: '내일 만나서 직접 말하면 되지! 하고 넘긴다', scores: { ludus: 2, eros: 1 } },
+      { text: '답장보다 내가 먼저 마음을 전한 것에 만족한다', scores: { agape: 3 } }
+    ]
+  },
+  {
+    text: '연인과 함께 있을 때 가장 행복한 순간은?',
+    options: [
+      { text: '연인이 나만 바라보며 "너밖에 없어"라고 할 때', scores: { mania: 3, eros: 1 } },
+      { text: '함께 웃으며 새로운 걸 경험할 때', scores: { ludus: 3 } },
+      { text: '아무 말 없이 나란히 있어도 편안할 때', scores: { storge: 3 } },
+      { text: '내가 해준 것에 연인이 행복해할 때', scores: { agape: 3 } }
+    ]
   }
 ];
 
@@ -1138,15 +1161,18 @@ function showResult() {
   const t = TYPES[topType];
 
   document.getElementById('resultTypeName').textContent = t.name;
+  document.getElementById('resultTypeName').style.color = t.nameColor;
   document.getElementById('resultTypeSub').textContent = t.sub;
   document.getElementById('resultDesc').textContent = t.desc;
   document.getElementById('resultStyle').textContent = t.style;
   document.getElementById('resultCaution').textContent = t.caution;
   document.getElementById('heroineDesc').textContent = t.heroine;
 
-  // 캐릭터 한 마디
-  document.getElementById('quoteCharName').textContent = t.charName;
+  // 캐릭터 한 마디 (대사만, 이름 없이)
   document.getElementById('quoteText').textContent = t.charQuote;
+  const quoteEl = document.getElementById('resultQuote');
+  quoteEl.style.setProperty('--quote-color', t.nameColor + '66');
+  quoteEl.style.color = t.color;
 
   // 캐릭터 이미지
   const box = document.getElementById('resultCharBox');
