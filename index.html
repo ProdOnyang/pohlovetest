@@ -750,9 +750,9 @@
 
     <div class="result-header">
       <div class="result-badge">YOUR LOVE COLOR</div>
-      <div class="result-header-title">당신의 사랑 색깔은</div>
-      <div class="result-type-name" id="resultTypeName">아가페형</div>
-      <div class="result-type-sub" id="resultTypeSub">순수한 사랑의 헌신자</div>
+      <div class="result-header-title">당신의 사랑의 색채는</div>
+      <div class="result-type-name" id="resultTypeName">아가페</div>
+      <div class="result-type-sub" id="resultTypeSub">헌신적인 사랑</div>
     </div>
 
     <!-- 캐릭터 전신 이미지 -->
@@ -780,7 +780,7 @@
     </div>
 
     <div class="result-card">
-      <div class="result-card-label">❗이런 점은 주의해요</div>
+      <div class="result-card-label">❗이런 점에 주의하세요</div>
       <div class="result-card-text" id="resultCaution"></div>
     </div>
 
@@ -792,7 +792,7 @@
 
     <!-- 점수 분포 -->
     <div class="result-card">
-      <div class="result-card-label">📊 나의 사랑 색깔 분포</div>
+      <div class="result-card-label">📊 사랑의 색채 분포</div>
       <div class="score-list" id="scoreList"></div>
     </div>
 
@@ -1227,7 +1227,7 @@ function getTopType() {
 
 function getShareText() {
   const t = TYPES[getTopType()];
-  return `나의 사랑 색깔은 ${t.emoji} ${t.name}!\n"${t.sub}"\n\n당신의 사랑은 무슨 색이야? 테스트 해보기 👇\n${window.location.href}`;
+  return `내 사랑의 색채는 ${t.emoji} ${t.name}!\n"${t.sub}"\n\n당신의 사랑은 무슨 색이야? 테스트 해보기 👇\n${window.location.href}`;
 }
 
 function shareX() {
@@ -1240,7 +1240,7 @@ function shareKakao() {
     const t = TYPES[getTopType()];
     window.Kakao.Share.sendDefault({
       objectType: 'text',
-      text: `나의 사랑 색깔은 ${t.emoji} ${t.name}! "${t.sub}"\n당신의 색깔도 알아보세요!`,
+      text: `내 사랑의 색채는 ${t.emoji} ${t.name}! "${t.sub}"\n당신의 색깔도 알아보세요!`,
       link: { mobileWebUrl: window.location.href, webUrl: window.location.href }
     });
   } else {
