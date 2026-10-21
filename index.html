@@ -6,10 +6,11 @@
 <title>사랑의 색채 테스트 — PINK♡OVERHEAT</title>
 <meta property="og:title" content="💕당신의 사랑은 무슨 색이야?💕">
 <meta property="og:description" content="PINK♡OVERHEAT 연애 심리 테스트">
-<meta property="og:image" content="og-thumbnail.png">
+<meta property="og:image" content="https://prodonyang.github.io/pohlovetest/og-thumbnail.png">
+<meta property="og:url" content="https://prodonyang.github.io/pohlovetest/">
 <meta property="og:type" content="website">
 <meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:image" content="og-thumbnail.png">
+<meta property="twitter:image" content="https://prodonyang.github.io/pohlovetest/og-thumbnail.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
@@ -570,8 +571,8 @@
   }
   .share-btns {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
     margin-bottom: 14px;
   }
   .share-btn {
@@ -589,35 +590,104 @@
     transition: transform 0.15s, box-shadow 0.15s;
   }
   .share-btn:active { transform: scale(0.95); }
-  .share-btn-icon { font-size: 1.5rem; }
+  .share-btn-icon { width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; }
+  .share-btn-icon svg { width: 22px; height: 22px; }
   .share-btn.x     { background: #111; color: #fff; }
+  .share-btn.insta { background: linear-gradient(45deg, #f9a03f 0%, #e1306c 50%, #833ab4 100%); color: #fff; }
   .share-btn.kakao { background: #FEE500; color: #3A1D1D; }
   .share-btn.copy  { background: var(--pink-pale); color: var(--pink-deep); border: 2px solid rgba(255,111,168,0.3); }
 
-  /* 공식 계정 버튼 */
-  .btn-official {
+  /* 공식 링크 버튼 */
+  .link-label { margin-top: 28px; }
+  .link-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .link-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    width: 100%;
-    padding: 15px;
-    background: linear-gradient(135deg, #3a1a2e, #6a2a4e);
+    gap: 7px;
+    padding: 14px 8px;
+    border-radius: var(--radius-sm);
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 0.84rem;
+    font-weight: 800;
     color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(58,26,46,0.18);
+    transition: transform 0.15s;
+  }
+  .link-btn:active { transform: scale(0.96); }
+  .link-btn svg { width: 16px; height: 16px; }
+  .link-btn-icon { font-size: 1rem; line-height: 1; }
+  .link-btn.x        { background: #111; }
+  .link-btn.steam    { background: linear-gradient(135deg, #171a21, #2a475e); }
+  .link-btn.stove    { background: linear-gradient(135deg, #ff6b1a, #ff9a3c); }
+  .link-btn.tumblbug { background: linear-gradient(135deg, var(--pink-deep), var(--pink-main)); }
+
+  /* 공유 시트 (바텀 시트) */
+  .sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(58,26,46,0.45);
+    z-index: 9000;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+  }
+  .sheet-backdrop.open { opacity: 1; pointer-events: auto; }
+  .sheet {
+    width: 100%;
+    max-width: 480px;
+    background: var(--white);
+    border-radius: 24px 24px 0 0;
+    padding: 10px 16px calc(18px + env(safe-area-inset-bottom));
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(.22,1,.36,1);
+  }
+  .sheet-backdrop.open .sheet { transform: translateY(0); }
+  .sheet-handle {
+    width: 40px; height: 4px;
+    background: var(--pink-light);
+    border-radius: 99px;
+    margin: 0 auto 14px;
+  }
+  .sheet-title {
+    font-family: 'Gowun Batang', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .sheet-preview {
+    background: var(--pink-pale);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--text-mid);
+    white-space: pre-line;
+    word-break: break-all;
+    margin-bottom: 14px;
+  }
+  .sheet-close {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: none;
+    border: none;
     font-family: 'Nanum Gothic', sans-serif;
     font-size: 0.88rem;
-    font-weight: 800;
-    border: none;
-    border-radius: 99px;
+    font-weight: 700;
+    color: var(--text-soft);
     cursor: pointer;
-    box-shadow: 0 4px 18px rgba(58,26,46,0.28);
-    transition: transform 0.15s, box-shadow 0.15s;
-    letter-spacing: 0.04em;
-    margin-top: 12px;
-    text-decoration: none;
   }
-  .btn-official:active { transform: scale(0.97); box-shadow: 0 2px 8px rgba(58,26,46,0.2); }
-  .btn-official-heart { color: var(--pink-light); font-size: 1rem; }
 
   /* 토스트 */
   .toast {
@@ -723,10 +793,10 @@
     <div class="progress-wrap">
       <div class="progress-header">
         <span class="progress-label">QUESTION</span>
-        <span class="progress-num" id="progressNum">1 / 12</span>
+        <span class="progress-num" id="progressNum">1 / 10</span>
       </div>
       <div class="progress-bar-bg">
-        <div class="progress-bar-fill" id="progressBar" style="width:8.33%"></div>
+        <div class="progress-bar-fill" id="progressBar" style="width:10%"></div>
       </div>
     </div>
 
@@ -813,29 +883,53 @@
 
     <!-- 공유 -->
     <div class="share-section">
-      <div class="share-label">✦ 결과 공유하기</div>
-      <div class="share-btns">
-        <button class="share-btn x" onclick="shareX()">
-          <span class="share-btn-icon">𝕏</span>X (트위터)
-        </button>
-        <button class="share-btn kakao" onclick="shareKakao()">
-          <span class="share-btn-icon">💬</span>카카오톡
-        </button>
-        <button class="share-btn copy" onclick="copyLink()">
-          <span class="share-btn-icon">🔗</span>링크 복사
-        </button>
-      </div>
+      <button class="btn-main" onclick="openShareSheet()">📤 SNS에 공유하기</button>
 
-      <!-- 공식 계정 이동 버튼 -->
-      <!-- href를 실제 계정 URL로 교체하세요 -->
-      <a href="https://twitter.com/PINKOVERHEAT" target="_blank" rel="noopener" class="btn-official">
-        <span class="btn-official-heart">♡</span>
-        PINK♡OVERHEAT 공식 계정 팔로우하기
-      </a>
+      <!-- 공식 링크 — URL은 스크립트 상단 LINKS에서 수정 -->
+      <div class="share-label link-label">✦ PINK♡OVERHEAT 만나러 가기</div>
+      <div class="link-grid">
+        <a class="link-btn x" data-link="X" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.9 2H22l-6.8 7.8L23 22h-6.2l-4.8-6.3L6.4 22H3.3l7.3-8.3L1 2h6.3l4.4 5.8L18.9 2Zm-1.1 18.2h1.7L6.3 3.7H4.5l13.3 16.5Z"/></svg>
+          공식 X 팔로우
+        </a>
+        <a class="link-btn steam" data-link="STEAM" target="_blank" rel="noopener">
+          <span class="link-btn-icon">🎮</span>Steam 페이지
+        </a>
+        <a class="link-btn stove" data-link="STOVE" target="_blank" rel="noopener">
+          <span class="link-btn-icon">🔥</span>STOVE 페이지
+        </a>
+        <a class="link-btn tumblbug" data-link="TUMBLBUG" target="_blank" rel="noopener">
+          <span class="link-btn-icon">💝</span>텀블벅 펀딩
+        </a>
+      </div>
 
       <button class="btn-outline" onclick="restartQuiz()">🔄 다시 테스트하기</button>
     </div>
 
+  </div>
+</div>
+
+<!-- 공유 시트 -->
+<div class="sheet-backdrop" id="shareSheet" onclick="if (event.target === this) closeShareSheet()">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title" id="sheetTitle">결과 공유하기</div>
+    <div class="sheet-preview" id="sharePreview"></div>
+    <div class="share-btns">
+      <button class="share-btn x" onclick="shareX()">
+        <span class="share-btn-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.9 2H22l-6.8 7.8L23 22h-6.2l-4.8-6.3L6.4 22H3.3l7.3-8.3L1 2h6.3l4.4 5.8L18.9 2Zm-1.1 18.2h1.7L6.3 3.7H4.5l13.3 16.5Z"/></svg></span>X
+      </button>
+      <button class="share-btn insta" onclick="shareInstagram()">
+        <span class="share-btn-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor"/></svg></span>인스타그램
+      </button>
+      <button class="share-btn kakao" onclick="shareKakao()">
+        <span class="share-btn-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3C6.5 3 2 6.5 2 10.8c0 2.8 1.9 5.2 4.7 6.6l-1 3.6c-.1.3.3.6.6.4l4.2-2.8c.5.1 1 .1 1.5.1 5.5 0 10-3.5 10-7.9S17.5 3 12 3Z"/></svg></span>카카오톡
+      </button>
+      <button class="share-btn copy" onclick="copyLink()">
+        <span class="share-btn-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/></svg></span>링크 복사
+      </button>
+    </div>
+    <button class="sheet-close" onclick="closeShareSheet()">닫기</button>
   </div>
 </div>
 
@@ -844,6 +938,19 @@
 
 
 <script>
+// ═══════════════════════════════════════════
+//  ★ 링크 설정 — 실제 주소로 교체하세요
+//    비워두면('') 버튼을 눌렀을 때 "곧 공개될 예정이에요!" 안내가 뜹니다
+// ═══════════════════════════════════════════
+const LINKS = {
+  X:        'https://x.com/PINKOVERHEAT',
+  STEAM:    'https://store.steampowered.com/app/5157150',
+  STOVE:    'https://store.onstove.com/games/105614',
+  TUMBLBUG: 'https://tumblbug.com/pinkoverheat',
+  // 공유될 테스트 페이지 주소 (비워두면 현재 페이지 주소 사용)
+  SITE_URL: 'https://prodonyang.github.io/pohlovetest/'
+};
+
 // ═══════════════════════════════════════════
 //  타입 데이터
 // ═══════════════════════════════════════════
@@ -948,113 +1055,101 @@ const TYPES = {
 //    options 안의 "text" = 선택지 텍스트
 //    scores는 건드리지 않아도 됩니다
 // ═══════════════════════════════════════════
+//  ★ 밸런스 규칙 (문항을 고칠 때 유지해 주세요)
+//    - 모든 선택지는 한 유형에만 2점
+//    - 아가페·에로스·스토르게·프라그마·루두스: 각 7개 선택지 (10문항 중 7문항에 등장)
+//    - 매니아: 짝수 문항(2·4·6·8·10)에만 5개 선택지 → 다른 유형보다 살짝 덜 나옴
+//    - 동점 처리는 아래 computeTopType / MANIA_WINS_TIE 참고
+//    - 선택지 순서는 매번 무작위로 섞임 (A가 항상 같은 유형이 되지 않도록)
 const QUESTIONS = [
   {
-    text: '처음 누군가를 만났을 때, 나는...',
+    text: '누군가에게 처음 끌릴 때, 나는...',
     options: [
-      { text: '첫눈에 "이 사람이다!"라는 강렬한 느낌이 온다', scores: { eros: 3, mania: 1 } },
-      { text: '자연스럽게 친해지면서 서서히 알아간다', scores: { storge: 3, pragma: 1 } },
-      { text: '얼마나 매력적인지, 얼마나 재미있을지 생각한다', scores: { ludus: 3, eros: 1 } },
-      { text: '공통점이 있는지, 잘 맞을지 분석해본다', scores: { pragma: 3, storge: 1 } }
+      { text: '첫눈에 "이 사람이다!" 하고 심장이 먼저 반응한다', scores: { eros: 2 } },
+      { text: '같이 있는 게 편하다 싶을 즈음, 어느새 좋아하고 있다', scores: { storge: 2 } },
+      { text: '가치관이나 생활 리듬이 나와 잘 맞는지부터 살핀다', scores: { pragma: 2 } },
+      { text: '밀고 당기는 아슬아슬한 지금 이 분위기가 제일 즐겁다', scores: { ludus: 2 } }
     ]
   },
   {
-    text: '연인을 생각할 때 나는...',
+    text: '연인에게 반나절째 연락이 없다. 나는...',
     options: [
-      { text: '하루 종일 그 사람 생각이 머릿속을 떠나지 않는다', scores: { mania: 3, eros: 1 } },
-      { text: '보고 싶지만 각자의 시간도 중요하다고 생각한다', scores: { ludus: 2, storge: 1, pragma: 1 } },
-      { text: '함께 무언가를 만들어가는 파트너라고 느낀다', scores: { pragma: 3, storge: 1 } },
-      { text: '그 사람이 행복하길 바라는 마음이 가장 크다', scores: { agape: 3, storge: 1 } }
+      { text: '무슨 일이 생긴 건 아닐까, 휴대폰을 몇 번이고 확인한다', scores: { mania: 2 } },
+      { text: '많이 바쁜가 보다. 연락 오면 수고했다고 말해줘야지', scores: { agape: 2 } },
+      { text: '평소처럼 오늘 있었던 일을 톡으로 남겨둔다', scores: { storge: 2 } },
+      { text: '오히려 좋아! 나도 내 시간을 즐기러 나간다', scores: { ludus: 2 } }
     ]
   },
   {
-    text: '연애에서 가장 중요하게 생각하는 것은?',
+    text: '기다리던 데이트 날! 하고 싶은 것은?',
     options: [
-      { text: '강렬한 감정적·신체적 교감', scores: { eros: 3 } },
-      { text: '함께하는 즐거움과 자유로움', scores: { ludus: 3 } },
-      { text: '깊은 신뢰와 편안한 우정', scores: { storge: 3 } },
-      { text: '미래 지향적인 안정감', scores: { pragma: 3 } }
+      { text: '요즘 지쳐 보였던 연인이 하고 싶은 걸 마음껏 하게 해주기', scores: { agape: 2 } },
+      { text: '늘 가던 단골집에서 편하게 수다 떨기', scores: { storge: 2 } },
+      { text: '동선과 예약까지 미리 완벽하게 짜둔 코스대로 움직이기', scores: { pragma: 2 } },
+      { text: '정해진 건 없다! 발길 닿는 대로 즉흥 모험', scores: { ludus: 2 } }
     ]
   },
   {
-    text: '연인에게 연락이 없을 때 나는...',
+    text: '연인과 크게 다퉜다. 나는...',
     options: [
-      { text: '걱정되고 불안해서 먼저 연락하게 된다', scores: { mania: 3, eros: 1 } },
-      { text: '각자 바쁜 거라고 생각하며 기다린다', scores: { ludus: 2, pragma: 1, storge: 1 } },
-      { text: '이상하다 싶으면 솔직하게 물어본다', scores: { storge: 2, agape: 1 } },
-      { text: '연락 패턴에 큰 의미를 두지 않는 편이다', scores: { agape: 2, ludus: 1 } }
+      { text: '이대로 끝나버릴까 봐 아무것도 손에 잡히지 않는다', scores: { mania: 2 } },
+      { text: '감정이 격해지지만, 화해할 땐 누구보다 뜨겁게 끌어안는다', scores: { eros: 2 } },
+      { text: '조금 지나면 아무 일 없었다는 듯 먼저 장난을 건다', scores: { storge: 2 } },
+      { text: '뭐가 문제였는지 정리해서, 같은 일이 반복되지 않게 이야기한다', scores: { pragma: 2 } }
     ]
   },
   {
-    text: '이상적인 첫 데이트는?',
+    text: '연인을 고를 때 절대 양보할 수 없는 것은?',
     options: [
-      { text: '분위기 있는 레스토랑에서 로맨틱한 저녁', scores: { eros: 3, mania: 1 } },
-      { text: '즉흥적으로 재미있는 곳을 함께 찾아다니기', scores: { ludus: 3 } },
-      { text: '카페에서 긴 대화를 나누며 서로 알아가기', scores: { storge: 3, pragma: 1 } },
-      { text: '공통 관심사를 나눌 수 있는 전시나 공연', scores: { pragma: 2, storge: 2 } }
+      { text: '내가 힘이 되어주고 싶다는 마음이 드는 사람', scores: { agape: 2 } },
+      { text: '한눈에 반할 만큼 강렬한 매력', scores: { eros: 2 } },
+      { text: '함께 미래를 그릴 수 있는 성실함과 안정감', scores: { pragma: 2 } },
+      { text: '나를 구속하지 않는 쿨함과 재미', scores: { ludus: 2 } }
     ]
   },
   {
-    text: '연인과 크게 다퉜을 때 나는...',
+    text: '연인이 다른 친구와 즐겁게 이야기하고 있다. 나는...',
     options: [
-      { text: '마음이 요동쳐서 아무것도 손에 잡히지 않는다', scores: { mania: 3 } },
-      { text: '머리를 식히기 위해 거리를 두는 편이다', scores: { ludus: 3 } },
-      { text: '힘들지만 솔직하게 대화로 풀려고 노력한다', scores: { storge: 2, agape: 1, pragma: 1 } },
-      { text: '상대방이 왜 그런지 이해하려고 먼저 생각해본다', scores: { agape: 3 } }
-    ]
-  },
-  {
-    text: '새로운 연인의 어떤 면이 가장 먼저 눈에 들어오나요?',
-    options: [
-      { text: '외모와 분위기, 눈에 확 들어오는 매력', scores: { eros: 3, ludus: 1 } },
-      { text: '함께 있을 때의 편안함과 웃음', scores: { storge: 3 } },
-      { text: '가치관과 생활 방식이 나와 잘 맞는지', scores: { pragma: 3 } },
-      { text: '나를 얼마나 아껴주고 신경 써주는지', scores: { mania: 2, agape: 1 } }
+      { text: '같이 웃고는 있지만, 그 친구가 누군지 신경 쓰여 견딜 수 없다', scores: { mania: 2 } },
+      { text: '연인이 즐거워 보이면 됐지. 나까지 기분이 좋아진다', scores: { agape: 2 } },
+      { text: '서로 믿는 사이라면 문제없다. 다만 선은 분명히 해두고 싶다', scores: { pragma: 2 } },
+      { text: '나도 다른 친구들이랑 놀면 되니까 별로 신경 안 쓴다', scores: { ludus: 2 } }
     ]
   },
   {
     text: '사랑을 표현하는 나만의 방식은?',
     options: [
-      { text: '스킨십과 감정 표현으로 직접적으로 전한다', scores: { eros: 3, mania: 1 } },
-      { text: '재미있는 시간을 만들어주고 함께 즐긴다', scores: { ludus: 3 } },
-      { text: '일상 속에서 꾸준히 곁에 있어준다', scores: { storge: 3, agape: 1 } },
-      { text: '상대가 필요한 것을 미리 챙겨주고 도와준다', scores: { agape: 3, pragma: 1 } }
+      { text: '말하지 않아도 상대에게 필요한 것을 미리 챙겨준다', scores: { agape: 2 } },
+      { text: '눈을 맞추고 "좋아해"라고 몇 번이고 말한다', scores: { eros: 2 } },
+      { text: '오늘 먹은 점심까지, 사소한 일상을 하나하나 공유한다', scores: { storge: 2 } },
+      { text: '깜짝 이벤트나 장난으로 상대를 설레게 만든다', scores: { ludus: 2 } }
     ]
   },
   {
-    text: '연인과의 미래에 대해 생각할 때...',
+    text: '연인이 힘든 일을 겪고 있을 때 나는...',
     options: [
-      { text: '우리의 감정이 지속될 수 있을지가 제일 걱정된다', scores: { mania: 3, eros: 1 } },
-      { text: '지금 이 순간이 가장 중요하다. 미래를 굳이 생각하지 않는다', scores: { ludus: 3 } },
-      { text: '함께 나이 들어가는 모습을 자연스럽게 그려본다', scores: { storge: 3, agape: 1 } },
-      { text: '구체적인 계획을 함께 세우는 것이 안심된다', scores: { pragma: 3 } }
+      { text: '내가 아무것도 못 해주는 게 견딜 수 없어서 계속 곁을 맴돈다', scores: { mania: 2 } },
+      { text: '내 일정을 미뤄서라도 바로 달려간다', scores: { agape: 2 } },
+      { text: '꼭 안아주며 내 마음을 가득 전해 기운을 북돋운다', scores: { eros: 2 } },
+      { text: '평소처럼 맛있는 걸 같이 먹으며 이야기를 들어준다', scores: { storge: 2 } }
     ]
   },
   {
-    text: '연인이 힘든 시간을 보낼 때 나는...',
+    text: '연인과의 미래를 떠올리면...',
     options: [
-      { text: '내 일처럼 함께 힘들어하며 곁에 있는다', scores: { mania: 2, agape: 1 } },
-      { text: '혼자 해결할 시간이 필요할 것 같아 기다린다', scores: { ludus: 2, pragma: 1 } },
-      { text: '묵묵히 옆에서 들어주고 지지해준다', scores: { storge: 3, agape: 1 } },
-      { text: '실질적으로 도움이 될 방법을 나서서 찾아준다', scores: { agape: 3, pragma: 1 } }
-    ]
-  },
-  {
-    text: '연인에게 나의 감정을 솔직하게 말하는 편인가요?',
-    options: [
-      { text: '매우 그렇다. 감정을 숨기는 것이 힘들다', scores: { eros: 2, mania: 2 } },
-      { text: '상황에 따라 다르다. 가볍게 표현하는 편이다', scores: { ludus: 3 } },
-      { text: '천천히 신뢰가 쌓이면 자연스럽게 말하게 된다', scores: { storge: 3 } },
-      { text: '말로 하기보다는 행동으로 표현하는 편이다', scores: { pragma: 2, agape: 1 } }
+      { text: '그 사람이 행복할 수 있다면 어떤 모습이든 괜찮다', scores: { agape: 2 } },
+      { text: '지금처럼 매일 두근거리는 사랑이 영원히 계속됐으면', scores: { eros: 2 } },
+      { text: '백발이 되어서도 투닥거리는 베스트 프렌드 같은 모습', scores: { storge: 2 } },
+      { text: '결혼, 집, 저축… 구체적인 계획표가 그려진다', scores: { pragma: 2 } }
     ]
   },
   {
     text: '나에게 이상적인 사랑이란?',
     options: [
-      { text: '불꽃 같은 열정과 설렘이 가득한 사랑', scores: { eros: 3, mania: 1 } },
-      { text: '서로에게 부담 없이 즐거운 사랑', scores: { ludus: 3 } },
-      { text: '오랜 친구처럼 편안하고 깊은 사랑', scores: { storge: 3 } },
-      { text: '함께 성장하고 미래를 만들어가는 사랑', scores: { pragma: 2, agape: 1 } }
+      { text: '서로가 서로의 전부라서, 세상에 단 둘뿐인 것 같은 사랑', scores: { mania: 2 } },
+      { text: '불꽃처럼 뜨겁고 영화처럼 운명적인 사랑', scores: { eros: 2 } },
+      { text: '서로의 인생에 든든한 버팀목이 되어주는 사랑', scores: { pragma: 2 } },
+      { text: '언제나 새롭고 질리지 않는, 게임처럼 즐거운 사랑', scores: { ludus: 2 } }
     ]
   }
 ];
@@ -1064,6 +1159,29 @@ const QUESTIONS = [
 // ═══════════════════════════════════════════
 let currentQ = 0;
 let scores = { agape: 0, eros: 0, storge: 0, pragma: 0, ludus: 0, mania: 0 };
+let resultType = null;
+
+// 매니아가 다른 유형과 동점일 때 매니아를 결과로 할지
+//  (모든 응답 조합 기준 등장률) true: 매니아 13.9% / 나머지 각 17.2%
+//                              false: 매니아  7.9% / 나머지 각 18.4%
+const MANIA_WINS_TIE = false;
+
+// 최고점 유형 결정 — 동점이면 무작위 (특정 유형이 동점에서 유리하지 않도록)
+function computeTopType(sc) {
+  const max = Math.max(...Object.values(sc));
+  const tied = Object.keys(sc).filter(k => sc[k] === max);
+  if (MANIA_WINS_TIE && tied.includes('mania')) return 'mania';
+  return tied[Math.floor(Math.random() * tied.length)];
+}
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
 // ═══════════════════════════════════════════
 //  부유하는 하트 생성
@@ -1098,6 +1216,7 @@ function showScreen(id) {
 function startQuiz() {
   currentQ = 0;
   scores = { agape: 0, eros: 0, storge: 0, pragma: 0, ludus: 0, mania: 0 };
+  resultType = null;
   renderQuestion();
   showScreen('screen-quiz');
 }
@@ -1114,7 +1233,7 @@ function renderQuestion() {
   const list = document.getElementById('optionsList');
   list.innerHTML = '';
   const letters = ['A', 'B', 'C', 'D'];
-  q.options.forEach((opt, i) => {
+  shuffle(q.options).forEach((opt, i) => {
     const btn = document.createElement('button');
     btn.className = 'option-btn';
     btn.innerHTML = `<span class="option-letter">${letters[i]}</span><span>${opt.text}</span>`;
@@ -1152,8 +1271,8 @@ function showLoading() {
 
 function showResult() {
   const typeOrder = ['agape', 'eros', 'storge', 'pragma', 'ludus', 'mania'];
-  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-  const topType = sorted[0][0];
+  const topType = computeTopType(scores);
+  resultType = topType;
   const t = TYPES[topType];
 
   // 매니아 모드 배경 토글
@@ -1205,7 +1324,7 @@ function showResult() {
   }
 
   // 점수 바
-  const maxScore = sorted[0][1] || 1;
+  const maxScore = Math.max(...Object.values(scores)) || 1;
   const scoreList = document.getElementById('scoreList');
   scoreList.innerHTML = '';
   typeOrder.forEach(key => {
@@ -1226,6 +1345,7 @@ function showResult() {
   });
 
   showScreen('screen-result');
+  prepareStoryImage();
 
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
@@ -1237,6 +1357,7 @@ function showResult() {
 }
 
 function restartQuiz() {
+  closeShareSheet();
   document.body.classList.remove('mania-mode');
   startQuiz();
 }
@@ -1244,37 +1365,154 @@ function restartQuiz() {
 // ═══════════════════════════════════════════
 //  공유
 // ═══════════════════════════════════════════
-function getTopType() {
-  return Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0];
+// 공식 링크 버튼 연결
+document.querySelectorAll('[data-link]').forEach(a => {
+  const url = LINKS[a.dataset.link];
+  if (url) {
+    a.href = url;
+  } else {
+    a.addEventListener('click', e => { e.preventDefault(); showToast('곧 공개될 예정이에요! 💗'); });
+  }
+});
+
+function getSiteUrl() {
+  if (LINKS.SITE_URL) return LINKS.SITE_URL;
+  return location.protocol.startsWith('http') ? location.origin + location.pathname : location.href;
 }
 
-function getShareText() {
-  const t = TYPES[getTopType()];
-  return `내 사랑의 색채는 ${t.emoji} ${t.name}!\n"${t.sub}" #PINKoverheat \n 당신의 사랑은 무슨 색? 테스트 해보기 👇\n${window.location.href}`;
+function getResultType() {
+  return TYPES[resultType || computeTopType(scores)];
 }
+
+// 결과값 + 링크가 담긴 공유 문구
+function getShareText(withUrl = true) {
+  const t = getResultType();
+  const text = `내 사랑의 색채는 ${t.emoji} ${t.name} — "${t.sub}"!\n나와 같은 색의 히로인은 ${t.charName}✨\n당신의 사랑은 무슨 색? 테스트 해보기 👇\n#PINKOVERHEAT #사랑의색채테스트`;
+  return withUrl ? `${text}\n${getSiteUrl()}` : text;
+}
+
+function openShareSheet() {
+  document.getElementById('sharePreview').textContent = getShareText();
+  document.getElementById('shareSheet').classList.add('open');
+}
+
+function closeShareSheet() {
+  document.getElementById('shareSheet').classList.remove('open');
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeShareSheet(); });
 
 function shareX() {
-  const text = encodeURIComponent(getShareText());
-  window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
+  const text = encodeURIComponent(getShareText(false));
+  const url = encodeURIComponent(getSiteUrl());
+  window.open(`https://x.com/intent/post?text=${text}&url=${url}`, '_blank', 'noopener');
 }
 
+// 카카오톡 — 결과 문구 + 링크를 복사해서 카톡에 붙여넣는 방식
 function shareKakao() {
-  if (window.Kakao && window.Kakao.isInitialized()) {
-    const t = TYPES[getTopType()];
-    window.Kakao.Share.sendDefault({
-      objectType: 'text',
-      text: `내 사랑의 색채는 ${t.emoji} ${t.name}! "${t.sub}"\n #PINKoverheat 연애 심리 테스트에서 당신의 색깔도 알아보세요!`,
-      link: { mobileWebUrl: window.location.href, webUrl: window.location.href }
-    });
+  copyToClipboard(getShareText());
+  showToast('공유 문구를 복사했어요! 카톡에 붙여넣어 주세요 💬');
+}
+
+// 인스타그램은 웹 공유 링크가 없어서, 스토리용 결과 이미지를 만들어 공유/저장
+async function shareInstagram() {
+  copyToClipboard(getShareText());
+  const blob = await (storyImagePromise || prepareStoryImage());
+
+  if (blob) {
+    const file = new File([blob], 'pinkoverheat-love-color.png', { type: 'image/png' });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try {
+        await navigator.share({ files: [file] });
+        showToast('공유 문구도 복사해 뒀어요! 📸');
+        return;
+      } catch (e) {
+        if (e.name === 'AbortError') return;
+      }
+    }
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = file.name;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    showToast('결과 이미지를 저장하고 문구를 복사했어요! 📸');
   } else {
-    copyToClipboard(getShareText());
-    showToast('카카오 링크를 복사했어요 💬');
+    showToast('공유 문구를 복사했어요! 인스타그램에 붙여넣어 주세요 📸');
   }
 }
 
+// 결과 화면이 뜰 때 미리 만들어 둠 (공유 버튼 클릭 직후 바로 공유창을 띄우기 위해 — iOS 제약)
+let storyImagePromise = null;
+function prepareStoryImage() {
+  storyImagePromise = makeStoryImage().catch(() => null);  // 실패 시(로컬 파일 실행 등) 문구만 공유
+  return storyImagePromise;
+}
+
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = src;
+  });
+}
+
+// 1080×1920 인스타그램 스토리 이미지
+async function makeStoryImage() {
+  const t = getResultType();
+  const W = 1080, H = 1920;
+  const c = document.createElement('canvas');
+  c.width = W; c.height = H;
+  const ctx = c.getContext('2d');
+  const isMania = resultType === 'mania';
+
+  const bg = ctx.createLinearGradient(0, 0, 0, H);
+  if (isMania) { bg.addColorStop(0, '#2a3a55'); bg.addColorStop(1, '#1a2333'); }
+  else { bg.addColorStop(0, '#ffe4f0'); bg.addColorStop(1, '#fff5f9'); }
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  try {
+    const kv = await loadImage('bg-keyvisual.webp');
+    const s = Math.max(W / kv.width, H / kv.height);
+    ctx.globalAlpha = 0.3;
+    ctx.drawImage(kv, (W - kv.width * s) / 2, 0, kv.width * s, kv.height * s);
+    ctx.globalAlpha = 1;
+  } catch (e) {}
+
+  try {
+    const logo = await loadImage('logo.png');
+    const lw = 360, lh = logo.height * (lw / logo.width);
+    ctx.drawImage(logo, (W - lw) / 2, 110, lw, lh);
+  } catch (e) {}
+
+  ctx.textAlign = 'center';
+  ctx.fillStyle = isMania ? '#c8d4e8' : '#b07090';
+  ctx.font = '700 48px "Gowun Batang", serif';
+  ctx.fillText('나의 사랑의 색채는', W / 2, 420);
+  ctx.fillStyle = isMania ? '#ffffff' : t.nameColor;
+  ctx.font = '700 128px "Gowun Batang", serif';
+  ctx.fillText(t.name, W / 2, 560);
+  ctx.fillStyle = isMania ? '#c8d4e8' : '#7a4060';
+  ctx.font = '700 46px "Nanum Gothic", sans-serif';
+  ctx.fillText(`${t.emoji} ${t.sub}`, W / 2, 640);
+
+  try {
+    const ch = await loadImage(t.image);
+    const ch_h = 1000, ch_w = ch.width * (ch_h / ch.height);
+    ctx.drawImage(ch, (W - ch_w) / 2, 700, ch_w, ch_h);
+  } catch (e) {}
+
+  ctx.fillStyle = isMania ? '#c8d4e8' : '#7a4060';
+  ctx.font = '700 40px "Nanum Gothic", sans-serif';
+  ctx.fillText('당신의 사랑은 무슨 색? #PINKOVERHEAT', W / 2, 1800);
+
+  return new Promise(resolve => c.toBlob(resolve, 'image/png'));
+}
+
 function copyLink() {
-  copyToClipboard(window.location.href);
-  showToast('링크가 복사되었어요! 🔗');
+  copyToClipboard(getShareText());
+  showToast('결과와 링크가 복사되었어요! 🔗');
 }
 
 function copyToClipboard(text) {
