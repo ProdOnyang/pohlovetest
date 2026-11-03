@@ -1269,9 +1269,11 @@ function getResultType() {
   return TYPES[resultType || computeTopType(scores)];
 }
 
+const HASHTAG = '#PINKoverheat';
+
 function getShareText(withUrl = true) {
   const t = getResultType();
-  const text = `내 사랑의 색채는 ${t.emoji} ${t.name} — "${t.sub}"!\n나와 같은 색의 히로인은 ${t.charName}✨\n당신의 사랑은 무슨 색? 테스트 해보기 👇\n#PINKOVERHEAT #사랑의색채테스트`;
+  const text = `내 사랑의 색채는 ${t.emoji} ${t.name} — "${t.sub}"!\n나와 같은 색의 히로인은 ${t.charName}✨\n당신의 사랑은 무슨 색? 테스트 해보기 👇\n${HASHTAG}`;
   return withUrl ? `${text}\n${getSiteUrl()}` : text;
 }
 
@@ -1298,15 +1300,17 @@ function shareKakao() {
 }
 
 async function shareInstagram() {
-  copyToClipboard(getShareText());
+  const caption = getShareText();
+  copyToClipboard(caption);
   const blob = await (storyImagePromise || prepareStoryImage());
 
   if (blob) {
     const file = new File([blob], 'pinkoverheat-love-color.png', { type: 'image/png' });
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+    const data = { files: [file], text: caption };
+    if (navigator.canShare && navigator.canShare(data)) {
       try {
-        await navigator.share({ files: [file] });
-        showToast('공유 문구도 복사해 뒀어요! 📸');
+        await navigator.share(data);
+        showToast(`${HASHTAG} 문구도 복사해 뒀어요! 붙여넣어 주세요 📸`);
         return;
       } catch (e) {
         if (e.name === 'AbortError') return;
@@ -1317,9 +1321,9 @@ async function shareInstagram() {
     a.download = file.name;
     a.click();
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-    showToast('결과 이미지를 저장하고 문구를 복사했어요! 📸');
+    showToast(`결과 이미지를 저장하고 ${HASHTAG} 문구를 복사했어요! 📸`);
   } else {
-    showToast('공유 문구를 복사했어요! 인스타그램에 붙여넣어 주세요 📸');
+    showToast(`${HASHTAG} 문구를 복사했어요! 인스타그램에 붙여넣어 주세요 📸`);
   }
 }
 
@@ -1385,7 +1389,7 @@ async function makeStoryImage() {
 
   ctx.fillStyle = isMania ? '#c8d4e8' : '#7a4060';
   ctx.font = '700 40px "Nanum Gothic", sans-serif';
-  ctx.fillText('당신의 사랑은 무슨 색? #PINKOVERHEAT', W / 2, 1800);
+  ctx.fillText(`당신의 사랑은 무슨 색? ${HASHTAG}`, W / 2, 1800);
 
   return new Promise(resolve => c.toBlob(resolve, 'image/png'));
 }
